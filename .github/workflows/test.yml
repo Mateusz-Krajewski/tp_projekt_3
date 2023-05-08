@@ -1,0 +1,36 @@
+name: C++ Build and Test Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - mateusz
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gnuplot cmake gcc build-essential
+
+      - name: Build C++ Application
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make
+
+      - name: Test C++ Application
+        run: |
+          cd build
+          ctest --output-on-failure
