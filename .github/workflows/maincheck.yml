@@ -21,7 +21,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y gnuplot cmake gcc build-essential
-
+          git submodule update --init --recursive
       - name: Build C++ Application
         run: |
           mkdir build
